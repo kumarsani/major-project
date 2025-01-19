@@ -1,154 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Valentine's Day Surprise</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      overflow: hidden;
-    }
-
-    .container {
-      text-align: center;
-      width: 100%;
-    }
-
-    .button {
-      padding: 15px 30px;
-      border: none;
-      color: #fff;
-      font-size: 16px;
-      margin: 10px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-    }
-
-    .yes {
-      background-color: green;
-    }
-
-    .no {
-      background-color: red;
-    }
-
-    .button:hover {
-      transform: scale(1.1);
-    }
-
-    .no:hover {
-      animation: moveAway 0.5s infinite;
-    }
-
-    @keyframes moveAway {
-      0% { transform: translateX(0); }
-      25% { transform: translateX(10px); }
-      50% { transform: translateX(-10px); }
-      75% { transform: translateX(10px); }
-      100% { transform: translateX(0); }
-    }
-
-    #videoContainer {
-      display: none;
-    }
-
-    .restaurant-options {
-      display: none;
-      margin-top: 20px;
-    }
-
-    .restaurant-img {
-      width: 150px;
-      height: 150px;
-      margin: 10px;
-    }
-
-    .next-btn {
-      display: none;
-      padding: 10px 20px;
-      border: none;
-      background-color: #007BFF;
-      color: white;
-      font-size: 16px;
-      cursor: pointer;
-      margin-top: 20px;
-    }
-
-    .next-btn:hover {
-      background-color: #0056b3;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .container {
+            position: relative;
+            z-index: 10;
+        }
+        h1 {
+            font-size: 3em;
+            margin-top: 50px;
+        }
+        .btn {
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+        .yes-btn {
+            background-color: green;
+        }
+        .no-btn {
+            background-color: red;
+        }
+        .no-btn:hover {
+            position: absolute;
+            transition: 0.1s;
+        }
+        #next-btn {
+            display: none;
+            padding: 20px 40px;
+            font-size: 1.5em;
+            border: none;
+            background-color: #FF9900;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        #video-container {
+            display: none;
+            margin-top: 20px;
+        }
+        #restaurant-selection {
+            display: none;
+            margin-top: 20px;
+        }
+        #message {
+            font-size: 2em;
+            margin-top: 30px;
+        }
+        #restaurant-select {
+            font-size: 1.5em;
+            padding: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Sakina, the love of my life, will you be my Valentine?</h1>
-    <div id="yesNoButtons">
-      <button class="button yes" onclick="showVideo()">Yes</button>
-      <button class="button no" onclick="moveNo()">No</button>
+    <div class="container">
+        <h1>Sakina, the love of my life, will you be my Valentine?</h1>
+
+        <button class="btn yes-btn" id="yes-btn">YES</button>
+        <button class="btn no-btn" id="no-btn">NO</button>
+        
+        <div id="video-container">
+            <video id="video" width="600" controls>
+                <source src="https://drive.google.com/uc?export=download&id=1U75jE5Uy6PRr9BPyXx_ylvETU59-HZjv" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <button id="next-btn">Next</button>
+
+        <div id="restaurant-selection">
+            <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
+            <div id="restaurant-list">
+                <button class="restaurant-btn" data-restaurant="Sakura">Sakura</button>
+                <button class="restaurant-btn" data-restaurant="Chubby Cho">Chubby Cho</button>
+                <button class="restaurant-btn" data-restaurant="Skysalt">Skysalt</button>
+                <button class="restaurant-btn" data-restaurant="Akan">Akan</button>
+                <button class="restaurant-btn" data-restaurant="Biriyaniwalla & Co.">Biriyaniwalla & Co.</button>
+            </div>
+        </div>
+
+        <div id="message"></div>
     </div>
 
-    <!-- Video container -->
-    <div id="videoContainer">
-      <video id="video" width="600" controls>
-        <source src="https://drive.google.com/uc?id=1U75jE5Uy6PRr9BPyXx_ylvETU59-HZjv" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
-      <button class="next-btn" onclick="showRestaurantOptions()">Next</button>
-    </div>
+    <script>
+        const yesBtn = document.getElementById('yes-btn');
+        const noBtn = document.getElementById('no-btn');
+        const videoContainer = document.getElementById('video-container');
+        const nextBtn = document.getElementById('next-btn');
+        const restaurantSelection = document.getElementById('restaurant-selection');
+        const restaurantBtns = document.querySelectorAll('.restaurant-btn');
+        const message = document.getElementById('message');
+        const video = document.getElementById('video');
+        
+        // Making the "No" button move fast when hovered
+        noBtn.addEventListener('mouseover', () => {
+            const randomX = Math.random() * window.innerWidth;
+            const randomY = Math.random() * window.innerHeight;
+            noBtn.style.left = `${randomX}px`;
+            noBtn.style.top = `${randomY}px`;
+        });
 
-    <!-- Restaurant options -->
-    <div id="restaurantOptions" class="restaurant-options">
-      <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
-      <div>
-        <img src="https://drive.google.com/uc?id=1EXLm67mljJ9GCoUuPXzYIo7BxCaXVe22" class="restaurant-img" alt="Akan" onclick="chooseRestaurant('Akan')">
-        <img src="https://drive.google.com/uc?id=1tYLdNzSzkODLBp_BUxblMx_3uQOFD1M9" class="restaurant-img" alt="Biriyaniwalla & Co." onclick="chooseRestaurant('Biriyaniwalla & Co.')">
-        <img src="https://drive.google.com/uc?id=1Sr57C5HOGzcPrqkomb45uZLR8o-72_kq" class="restaurant-img" alt="Chubby Cho" onclick="chooseRestaurant('Chubby Cho')">
-        <img src="https://drive.google.com/uc?id=1fovFKxm273q_fZaa1DyHwCb-xJRrwskv" class="restaurant-img" alt="Sakura" onclick="chooseRestaurant('Sakura')">
-        <img src="https://drive.google.com/uc?id=1U0c7srNnBya5ADXjtbnlSVdIUc8ro4D-" class="restaurant-img" alt="Skysalt" onclick="chooseRestaurant('Skysalt')">
-      </div>
-      <div id="chosenRestaurant"></div>
-    </div>
-  </div>
+        // When the YES button is clicked, the video plays
+        yesBtn.addEventListener('click', () => {
+            yesBtn.style.display = 'none';
+            noBtn.style.display = 'none';
+            videoContainer.style.display = 'block';
+            video.play();
+        });
 
-  <script>
-    // Show video after clicking "Yes"
-    function showVideo() {
-      document.getElementById('yesNoButtons').style.display = 'none';
-      document.getElementById('videoContainer').style.display = 'block';
-      document.getElementById('video').play();
-    }
+        // When video ends, show Next button
+        video.addEventListener('ended', () => {
+            videoContainer.style.display = 'none';
+            nextBtn.style.display = 'block';
+        });
 
-    // Make "No" button move fast
-    function moveNo() {
-      let noButton = document.querySelector('.no');
-      noButton.style.animationDuration = '0.1s';
-      noButton.style.animationName = 'moveAway';
-    }
+        // When the "Next" button is clicked, show restaurant options
+        nextBtn.addEventListener('click', () => {
+            nextBtn.style.display = 'none';
+            restaurantSelection.style.display = 'block';
+        });
 
-    // Show restaurant options after video ends
-    document.getElementById('video').addEventListener('ended', function() {
-      document.getElementById('videoContainer').style.display = 'none';
-      document.getElementById('restaurantOptions').style.display = 'block';
-      document.querySelector('.next-btn').style.display = 'block';
-    });
-
-    // Show the restaurant selection
-    function showRestaurantOptions() {
-      document.getElementById('restaurantOptions').style.display = 'block';
-    }
-
-    // Handle restaurant selection
-    function chooseRestaurant(restaurant) {
-      document.getElementById('chosenRestaurant').innerText = "You chose: " + restaurant;
-    }
-  </script>
+        // When a restaurant is selected, show a message with the selected restaurant
+        restaurantBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const selectedRestaurant = btn.getAttribute('data-restaurant');
+                message.innerHTML = `YAYYYY see you at ${selectedRestaurant} on 14th!`;
+                restaurantSelection.style.display = 'none';
+                message.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 </html>
