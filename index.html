@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: url('collage.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        h1, h2 {
+            animation: fadeIn 1.5s ease;
+        }
+
+        #restaurant-selection {
+            display: none;
+            animation: fadeInUp 1s ease;
+        }
+
+        .restaurant-options {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .restaurant {
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .restaurant:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .restaurant img {
+            max-width: 150px;
+            border-radius: 10px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ff416c;
+            color: #fff;
+            font-size: 1em;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #ff638c;
+            transform: scale(1.1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Valentine's Day Surprise</h1>
+
+    <!-- Restaurant Selection Section -->
+    <div id="restaurant-selection">
+        <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
+        <div class="restaurant-options">
+            <div class="restaurant">
+                <img src="https://drive.google.com/uc?export=download&id=1EXLm67mljJ9GCoUuPXzYIo7BxCaXVe22" alt="Akan">
+                <button onclick="selectRestaurant('Akan')">Akan</button>
+            </div>
+            <div class="restaurant">
+                <img src="https://drive.google.com/uc?export=download&id=1tYLdNzSzkODLBp_BUxblMx_3uQOFD1M9" alt="Biriyaniwalla & Co.">
+                <button onclick="selectRestaurant('Biriyaniwalla & Co.')">Biriyaniwalla & Co.</button>
+            </div>
+            <div class="restaurant">
+                <img src="https://drive.google.com/uc?export=download&id=1Sr57C5HOGzcPrqkomb45uZLR8o-72_kq" alt="Chubby Cho">
+                <button onclick="selectRestaurant('Chubby Cho')">Chubby Cho</button>
+            </div>
+            <div class="restaurant">
+                <img src="https://drive.google.com/uc?export=download&id=1fovFKxm273q_fZaa1DyHwCb-xJRrwskv" alt="Sakura">
+                <button onclick="selectRestaurant('Sakura')">Sakura</button>
+            </div>
+            <div class="restaurant">
+                <img src="https://drive.google.com/uc?export=download&id=1U0c7srNnBya5ADXjtbnlSVdIUc8ro4D-" alt="Skysalt">
+                <button onclick="selectRestaurant('Skysalt')">Skysalt</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to show the restaurant selection
+        function showRestaurantSelection() {
+            document.getElementById('restaurant-selection').style.display = 'block';
+        }
+
+        // Function to handle restaurant selection
+        function selectRestaurant(restaurant) {
+            alert(`You selected ${restaurant}!`);
+            // Add more functionality here if needed
+        }
+
+        // Simulating the transition to the restaurant section after a video
+        setTimeout(showRestaurantSelection, 5000); // Replace 5000 with the actual video duration in ms
+    </script>
+</body>
+</html>
