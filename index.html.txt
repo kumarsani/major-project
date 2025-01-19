@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('websitebg.jpg') no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .button {
+            padding: 15px 30px;
+            margin: 10px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .button-yes {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .button-no {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .button-yes:hover {
+            background-color: #218838;
+        }
+
+        .button-no:hover {
+            background-color: #c82333;
+        }
+
+        .no-button-moving {
+            position: absolute;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 1.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="center" id="question-section">
+        <h1>Will you be my Valentine?</h1>
+        <button class="button button-yes" id="yes-button">Yes</button>
+        <button class="button button-no no-button-moving" id="no-button">No</button>
+    </div>
+
+    <div class="center hidden" id="video-section">
+        <p>Here's a surprise for you:</p>
+        <a href="https://drive.google.com/file/d/1U75jE5Uy6PRr9BPyXx_ylvETU59-HZjv/view?usp=drivesdk" target="_blank">Click here to watch the video</a>
+        <button class="button fade-in" id="next-button" style="margin-top: 20px;">Next</button>
+    </div>
+
+    <div class="center hidden" id="restaurant-section">
+        <h2>Please pick the restaurant for dinner on 14th Feb:</h2>
+        <div>
+            <img src="Akan.jpg" alt="Akan" style="width: 150px; margin: 10px; cursor: pointer;" onclick="selectRestaurant('Akan')">
+            <img src="ChubbyCho.jpg" alt="Chubby Cho" style="width: 150px; margin: 10px; cursor: pointer;" onclick="selectRestaurant('Chubby Cho')">
+            <img src="Skysalt.jpg" alt="Skysalt" style="width: 150px; margin: 10px; cursor: pointer;" onclick="selectRestaurant('Skysalt')">
+            <img src="Biriyaniwalla.jpg" alt="Biriyaniwalla & Co." style="width: 150px; margin: 10px; cursor: pointer;" onclick="selectRestaurant('Biriyaniwalla & Co.')">
+            <img src="Sakura.jpg" alt="Sakura" style="width: 150px; margin: 10px; cursor: pointer;" onclick="selectRestaurant('Sakura')">
+        </div>
+    </div>
+
+    <div class="center hidden" id="final-message">
+        <h2 id="selected-restaurant"></h2>
+    </div>
+
+    <script>
+        const noButton = document.getElementById('no-button');
+        const yesButton = document.getElementById('yes-button');
+        const questionSection = document.getElementById('question-section');
+        const videoSection = document.getElementById('video-section');
+        const restaurantSection = document.getElementById('restaurant-section');
+        const finalMessage = document.getElementById('final-message');
+
+        yesButton.addEventListener('click', () => {
+            questionSection.classList.add('hidden');
+            videoSection.classList.remove('hidden');
+        });
+
+        noButton.addEventListener('mouseover', () => {
+            const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+            const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+            noButton.style.left = `${x}px`;
+            noButton.style.top = `${y}px`;
+        });
+
+        document.getElementById('next-button').addEventListener('click', () => {
+            videoSection.classList.add('hidden');
+            restaurantSection.classList.remove('hidden');
+        });
+
+        function selectRestaurant(restaurantName) {
+            restaurantSection.classList.add('hidden');
+            finalMessage.classList.remove('hidden');
+            document.getElementById('selected-restaurant').textContent = `YAYYY! See you at ${restaurantName} on 14th!`;
+        }
+    </script>
+</body>
+</html>
