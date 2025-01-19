@@ -1,156 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Valentine's Day Surprise</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('https://your-image-url.com/your-collage.jpg'); /* Replace with your collage image URL */
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-align: center;
-            padding: 50px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine's Day Surprise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 50px;
-        }
+    .container {
+      text-align: center;
+      width: 100%;
+    }
 
-        .buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
+    .button {
+      padding: 15px 30px;
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      margin: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+    }
 
-        .button {
-            padding: 20px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border: none;
-            border-radius: 10px;
-            width: 150px;
-        }
+    .yes {
+      background-color: green;
+    }
 
-        .yes {
-            background-color: #28a745;
-            color: white;
-        }
+    .no {
+      background-color: red;
+    }
 
-        .no {
-            background-color: #dc3545;
-            color: white;
-            position: relative;
-        }
+    .button:hover {
+      transform: scale(1.1);
+    }
 
-        .no:hover {
-            animation: moveAway 0.5s ease-in-out infinite;
-        }
+    .no:hover {
+      animation: moveAway 0.5s infinite;
+    }
 
-        @keyframes moveAway {
-            0% {
-                transform: translateX(0);
-            }
-            25% {
-                transform: translateX(10px);
-            }
-            50% {
-                transform: translateX(0);
-            }
-            75% {
-                transform: translateX(-10px);
-            }
-            100% {
-                transform: translateX(0);
-            }
-        }
+    @keyframes moveAway {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(10px); }
+      50% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
+    }
 
-        .cuisine-selection {
-            display: none;
-            margin-top: 50px;
-        }
+    #videoContainer {
+      display: none;
+    }
 
-        .restaurant-option {
-            background-color: #17a2b8;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            cursor: pointer;
-            font-size: 1.2rem;
-            color: white;
-        }
+    .restaurant-options {
+      display: none;
+      margin-top: 20px;
+    }
 
-        .restaurant-option:hover {
-            background-color: #117a8b;
-        }
+    .restaurant-img {
+      width: 150px;
+      height: 150px;
+      margin: 10px;
+    }
 
-        #video-section {
-            display: none;
-            margin-top: 50px;
-        }
+    .next-btn {
+      display: none;
+      padding: 10px 20px;
+      border: none;
+      background-color: #007BFF;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
 
-        #puzzle-section {
-            display: none;
-        }
-    </style>
+    .next-btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
 </head>
 <body>
-
+  <div class="container">
     <h1>Sakina, the love of my life, will you be my Valentine?</h1>
-
-    <div class="buttons">
-        <button class="button yes" id="yes-button">Yes</button>
-        <button class="button no" id="no-button">No</button>
+    <div id="yesNoButtons">
+      <button class="button yes" onclick="showVideo()">Yes</button>
+      <button class="button no" onclick="moveNo()">No</button>
     </div>
 
-    <div id="video-section">
-        <video id="first-video" width="80%" controls>
-            <source src="https://your-video-url.com/first-video.mp4" type="video/mp4"> <!-- Replace with your first video URL -->
-            Your browser does not support the video tag.
-        </video>
-        <p>YAYYYYY!</p>
-        <button class="button" id="show-cuisine">Next</button>
+    <!-- Video container -->
+    <div id="videoContainer">
+      <video id="video" width="600" controls>
+        <source src="https://drive.google.com/uc?id=1U75jE5Uy6PRr9BPyXx_ylvETU59-HZjv" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <button class="next-btn" onclick="showRestaurantOptions()">Next</button>
     </div>
 
-    <div id="cuisine-section" class="cuisine-selection">
-        <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
-        <div class="restaurant-option" data-restaurant="Akan">Akan</div>
-        <div class="restaurant-option" data-restaurant="Chubby Cho">Chubby Cho</div>
-        <div class="restaurant-option" data-restaurant="Skysalt">Skysalt</div>
-        <div class="restaurant-option" data-restaurant="Biriyaniwalla & Co.">Biriyaniwalla & Co.</div>
-        <div class="restaurant-option" data-restaurant="Sakura">Sakura</div>
+    <!-- Restaurant options -->
+    <div id="restaurantOptions" class="restaurant-options">
+      <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
+      <div>
+        <img src="https://drive.google.com/uc?id=1EXLm67mljJ9GCoUuPXzYIo7BxCaXVe22" class="restaurant-img" alt="Akan" onclick="chooseRestaurant('Akan')">
+        <img src="https://drive.google.com/uc?id=1tYLdNzSzkODLBp_BUxblMx_3uQOFD1M9" class="restaurant-img" alt="Biriyaniwalla & Co." onclick="chooseRestaurant('Biriyaniwalla & Co.')">
+        <img src="https://drive.google.com/uc?id=1Sr57C5HOGzcPrqkomb45uZLR8o-72_kq" class="restaurant-img" alt="Chubby Cho" onclick="chooseRestaurant('Chubby Cho')">
+        <img src="https://drive.google.com/uc?id=1fovFKxm273q_fZaa1DyHwCb-xJRrwskv" class="restaurant-img" alt="Sakura" onclick="chooseRestaurant('Sakura')">
+        <img src="https://drive.google.com/uc?id=1U0c7srNnBya5ADXjtbnlSVdIUc8ro4D-" class="restaurant-img" alt="Skysalt" onclick="chooseRestaurant('Skysalt')">
+      </div>
+      <div id="chosenRestaurant"></div>
     </div>
+  </div>
 
-    <div id="puzzle-section">
-        <h2>Solve the puzzle before continuing!</h2>
-        <img src="https://your-puzzle-image-url.com/puzzle-image.jpg" alt="Puzzle Image"> <!-- Replace with your puzzle image URL -->
-        <!-- Puzzle functionality will go here -->
-    </div>
+  <script>
+    // Show video after clicking "Yes"
+    function showVideo() {
+      document.getElementById('yesNoButtons').style.display = 'none';
+      document.getElementById('videoContainer').style.display = 'block';
+      document.getElementById('video').play();
+    }
 
-    <script>
-        document.getElementById('yes-button').addEventListener('click', function() {
-            document.getElementById('video-section').style.display = 'block';
-            document.getElementById('first-video').play();
-        });
+    // Make "No" button move fast
+    function moveNo() {
+      let noButton = document.querySelector('.no');
+      noButton.style.animationDuration = '0.1s';
+      noButton.style.animationName = 'moveAway';
+    }
 
-        document.getElementById('no-button').addEventListener('mouseover', function() {
-            this.style.transform = "translateX(10px)";
-        });
+    // Show restaurant options after video ends
+    document.getElementById('video').addEventListener('ended', function() {
+      document.getElementById('videoContainer').style.display = 'none';
+      document.getElementById('restaurantOptions').style.display = 'block';
+      document.querySelector('.next-btn').style.display = 'block';
+    });
 
-        document.getElementById('show-cuisine').addEventListener('click', function() {
-            document.getElementById('cuisine-section').style.display = 'block';
-        });
+    // Show the restaurant selection
+    function showRestaurantOptions() {
+      document.getElementById('restaurantOptions').style.display = 'block';
+    }
 
-        const restaurantOptions = document.querySelectorAll('.restaurant-option');
-        restaurantOptions.forEach(function(option) {
-            option.addEventListener('click', function() {
-                alert('You selected: ' + this.getAttribute('data-restaurant'));
-            });
-        });
-    </script>
-
+    // Handle restaurant selection
+    function chooseRestaurant(restaurant) {
+      document.getElementById('chosenRestaurant').innerText = "You chose: " + restaurant;
+    }
+  </script>
 </body>
 </html>
