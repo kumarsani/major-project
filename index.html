@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,130 +8,151 @@
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #ffefdb;
+            color: #333;
             text-align: center;
-            background: url('collage.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            color: #fff;
-            overflow: hidden;
         }
 
-        h1, h2 {
-            animation: fadeIn 1.5s ease;
+        .button {
+            padding: 10px 20px;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s ease;
         }
 
-        #restaurant-selection {
+        .yes-button {
+            background-color: green;
+            color: white;
+        }
+
+        .no-button {
+            background-color: red;
+            color: white;
+        }
+
+        .no-button:hover {
+            position: relative;
+            animation: moveAway 1s infinite;
+        }
+
+        @keyframes moveAway {
+            0% {
+                left: 0;
+            }
+
+            50% {
+                left: 10px;
+            }
+
+            100% {
+                left: 0;
+            }
+        }
+
+        #question {
+            font-size: 30px;
+            margin-top: 50px;
+        }
+
+        #cuisine-popup,
+        #message-popup {
             display: none;
-            animation: fadeInUp 1s ease;
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .restaurant-options {
+        #restaurant-options img {
+            width: 200px;
+            height: auto;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #restaurant-options {
             display: flex;
             justify-content: center;
-            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .restaurant {
-            text-align: center;
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 10px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .collage {
+            background-image: url('your-collage-image.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
         }
 
-        .restaurant:hover {
-            transform: scale(1.05);
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .restaurant img {
-            max-width: 150px;
-            border-radius: 10px;
-        }
-
-        button {
-            margin-top: 10px;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            background-color: #ff416c;
-            color: #fff;
-            font-size: 1em;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-        }
-
-        button:hover {
-            background-color: #ff638c;
-            transform: scale(1.1);
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .video-section {
+            display: none;
+            margin-top: 20px;
         }
     </style>
 </head>
-<body>
-    <h1>Valentine's Day Surprise</h1>
 
-    <!-- Restaurant Selection Section -->
-    <div id="restaurant-selection">
+<body>
+
+    <div id="collage" class="collage">
+        <h1>Sakina, the love of my life, will you be my Valentine?</h1>
+        <button id="yes-button" class="button yes-button">YES</button>
+        <button id="no-button" class="button no-button">NO</button>
+    </div>
+
+    <div id="video-section-1" class="video-section">
+        <video id="first-video" width="100%" controls>
+            <source src="your-video-1-url.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <h2>YAYYYYY</h2>
+    </div>
+
+    <div id="cuisine-popup">
         <h2>Please pick the restaurant for the dinner on 14th Feb:</h2>
-        <div class="restaurant-options">
-            <div class="restaurant">
-                <img src="https://drive.google.com/uc?export=download&id=1EXLm67mljJ9GCoUuPXzYIo7BxCaXVe22" alt="Akan">
-                <button onclick="selectRestaurant('Akan')">Akan</button>
-            </div>
-            <div class="restaurant">
-                <img src="https://drive.google.com/uc?export=download&id=1tYLdNzSzkODLBp_BUxblMx_3uQOFD1M9" alt="Biriyaniwalla & Co.">
-                <button onclick="selectRestaurant('Biriyaniwalla & Co.')">Biriyaniwalla & Co.</button>
-            </div>
-            <div class="restaurant">
-                <img src="https://drive.google.com/uc?export=download&id=1Sr57C5HOGzcPrqkomb45uZLR8o-72_kq" alt="Chubby Cho">
-                <button onclick="selectRestaurant('Chubby Cho')">Chubby Cho</button>
-            </div>
-            <div class="restaurant">
-                <img src="https://drive.google.com/uc?export=download&id=1fovFKxm273q_fZaa1DyHwCb-xJRrwskv" alt="Sakura">
-                <button onclick="selectRestaurant('Sakura')">Sakura</button>
-            </div>
-            <div class="restaurant">
-                <img src="https://drive.google.com/uc?export=download&id=1U0c7srNnBya5ADXjtbnlSVdIUc8ro4D-" alt="Skysalt">
-                <button onclick="selectRestaurant('Skysalt')">Skysalt</button>
-            </div>
+        <div id="restaurant-options">
+            <img src="Akan-image-link.jpg" alt="Akan" onclick="selectRestaurant('Akan')">
+            <img src="Biriyaniwalla-image-link.jpg" alt="Biriyaniwalla & Co." onclick="selectRestaurant('Biriyaniwalla & Co.')">
+            <img src="ChubbyCho-image-link.jpg" alt="Chubby Cho" onclick="selectRestaurant('Chubby Cho')">
+            <img src="Sakura-image-link.jpg" alt="Sakura" onclick="selectRestaurant('Sakura')">
+            <img src="Skysalt-image-link.jpg" alt="Skysalt" onclick="selectRestaurant('Skysalt')">
         </div>
     </div>
 
+    <div id="message-popup">
+        <h2 id="special-message"></h2>
+    </div>
+
     <script>
-        // Function to show the restaurant selection
-        function showRestaurantSelection() {
-            document.getElementById('restaurant-selection').style.display = 'block';
-        }
+        const yesButton = document.getElementById('yes-button');
+        const noButton = document.getElementById('no-button');
+        const collage = document.getElementById('collage');
+        const videoSection1 = document.getElementById('video-section-1');
+        const cuisinePopup = document.getElementById('cuisine-popup');
+        const messagePopup = document.getElementById('message-popup');
+        const specialMessage = document.getElementById('special-message');
 
-        // Function to handle restaurant selection
+        // Trigger video and next step on clicking "Yes"
+        yesButton.addEventListener('click', () => {
+            collage.style.display = 'none';
+            videoSection1.style.display = 'block';
+        });
+
+        // Trigger hiding "No" button and animation
+        noButton.addEventListener('mouseenter', () => {
+            noButton.style.animation = 'moveAway 1s infinite';
+        });
+
+        // Restaurant selection logic
         function selectRestaurant(restaurant) {
-            alert(`You selected ${restaurant}!`);
-            // Add more functionality here if needed
+            cuisinePopup.style.display = 'none';
+            specialMessage.innerHTML = `You have selected: ${restaurant}. Enjoy your dinner on 14th Feb!`;
+            messagePopup.style.display = 'block';
         }
-
-        // Simulating the transition to the restaurant section after a video
-        setTimeout(showRestaurantSelection, 5000); // Replace 5000 with the actual video duration in ms
     </script>
+
 </body>
+
 </html>
