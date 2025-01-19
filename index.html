@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-image: url('websitebg.jpg');
+            background-size: cover;
+            background-position: center;
+            transition: background-color 1s ease;
+        }
+        h1 {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            color: white;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        #yes-btn, #no-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            background-color: #ff7f7f;
+            color: white;
+            border: none;
+        }
+        #no-btn {
+            background-color: #7f7fff;
+        }
+        .btn-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .restaurant-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            background-color: white;
+            padding: 20px;
+            display: none;
+        }
+        .restaurant {
+            width: 200px;
+            text-align: center;
+            margin: 10px;
+        }
+        .restaurant img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .restaurant-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .video-container {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .video-container video {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 10px;
+        }
+        .next-btn {
+            padding: 10px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            background-color: #7fff7f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: none;
+        }
+        #question-box {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="question-box">
+            <h1>Will you be my valentine?</h1>
+        </div>
+        <button id="yes-btn">Yes</button>
+        <button id="no-btn">No</button>
+    </div>
+
+    <div class="video-container" id="video-container">
+        <p>Enjoy the surprise!</p>
+        <video id="video" controls>
+            <source src="https://drive.google.com/file/d/1U75jE5Uy6PRr9BPyXx_ylvETU59-HZjv/view?usp=drivesdk" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <div class="restaurant-container" id="restaurant-container">
+        <div class="restaurant" id="akan">
+            <img src="Akan.jpg" alt="Akan">
+            <div class="restaurant-name">Akan</div>
+        </div>
+        <div class="restaurant" id="sakura">
+            <img src="Sakura.jpg" alt="Sakura">
+            <div class="restaurant-name">Sakura</div>
+        </div>
+        <div class="restaurant" id="biriyaniwalla">
+            <img src="Biriyaniwalla.jpg" alt="Biriyaniwalla & Co.">
+            <div class="restaurant-name">Biriyaniwalla & Co.</div>
+        </div>
+        <div class="restaurant" id="chubbycho">
+            <img src="Chubby Cho.jpg" alt="Chubby Cho">
+            <div class="restaurant-name">Chubby Cho</div>
+        </div>
+        <div class="restaurant" id="skysalt">
+            <img src="Skysalt.jpg" alt="Skysalt">
+            <div class="restaurant-name">Skysalt</div>
+        </div>
+    </div>
+
+    <button class="next-btn" id="next-btn">Next</button>
+
+    <script>
+        // Button positioning and animation for 'No' button
+        let noBtn = document.getElementById('no-btn');
+        let yesBtn = document.getElementById('yes-btn');
+        let questionBox = document.getElementById('question-box');
+        let videoContainer = document.getElementById('video-container');
+        let restaurantContainer = document.getElementById('restaurant-container');
+        let nextBtn = document.getElementById('next-btn');
+
+        noBtn.addEventListener('mouseover', () => {
+            let noBtnRect = noBtn.getBoundingClientRect();
+            let xOffset = Math.random() * (window.innerWidth - noBtnRect.width);
+            let yOffset = Math.random() * (window.innerHeight - noBtnRect.height);
+            noBtn.style.left = xOffset + 'px';
+            noBtn.style.top = yOffset + 'px';
+        });
+
+        yesBtn.addEventListener('click', () => {
+            questionBox.style.display = 'none';
+            videoContainer.style.display = 'block';
+            document.getElementById('video').play();
+        });
+
+        document.getElementById('video').addEventListener('ended', () => {
+            videoContainer.style.display = 'none';
+            nextBtn.style.display = 'block';
+        });
+
+        nextBtn.addEventListener('click', () => {
+            nextBtn.style.display = 'none';
+            restaurantContainer.style.display = 'flex';
+            document.body.style.backgroundColor = 'white';
+        });
+
+        // Selecting a restaurant
+        const restaurantItems = document.querySelectorAll('.restaurant');
+        restaurantItems.forEach(item => {
+            item.addEventListener('click', () => {
+                let restaurantName = item.querySelector('.restaurant-name').innerText;
+                alert('YAYYY see you at ' + restaurantName + ' on 14th');
+            });
+        });
+    </script>
+</body>
+</html>
