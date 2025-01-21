@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Valentine Surprise</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-image: url('websitebg.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      color: white;
+      text-align: center;
+    }
+    #valentineBox, #restaurantSelection, #puzzleContainer, #messageBox {
+      display: none;
+    }
+    .btn {
+      padding: 10px 20px;
+      margin: 5px;
+      background-color: red;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #puzzle {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      width: 320px;
+      margin: 20px auto;
+    }
+    .tile {
+      width: 75px;
+      height: 75px;
+      background-size: 300px 300px;
+      cursor: pointer;
+    }
+    #messageBox {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="valentineBox">
+    <h1>Will You Be My Valentine?</h1>
+    <button id="yesBtn" class="btn">Yes</button>
+    <button id="noBtn" class="btn">No</button>
+  </div>
+  
+  <div id="videoLink" style="display: none;">
+    <p>Here’s a special video for you: 
+      <a href="YOUR_VIDEO_LINK_HERE" target="_blank">Watch Video</a>
+    </p>
+    <button id="nextBtn" class="btn">Next</button>
+  </div>
+  
+  <div id="restaurantSelection">
+    <h2>Pick your spot for the dinner date on 14th</h2>
+    <div id="restaurants">
+      <img src="Akan.jpg" alt="Akan" class="restaurant">
+      <img src="Sakura.jpg" alt="Sakura" class="restaurant">
+      <img src="Biriyaniwalla.jpg" alt="Biriyaniwalla" class="restaurant">
+      <img src="Chubby Cho.jpg" alt="Chubby Cho" class="restaurant">
+      <img src="Skysalt.jpg" alt="Skysalt" class="restaurant">
+    </div>
+  </div>
+  
+  <div id="puzzleContainer">
+    <h2>Solve this puzzle to unlock your next surprise!</h2>
+    <div id="puzzle"></div>
+    <button id="retryBtn" class="btn">Retry</button>
+  </div>
+  
+  <div id="messageBox">
+    <p id="successMessage"></p>
+    <a href="NEXT_VIDEO_LINK_HERE" target="_blank" class="btn">Watch Next Video</a>
+  </div>
+
+  <script>
+    // Show initial question
+    document.getElementById('valentineBox').style.display = 'block';
+
+    // No Button Movement
+    const noBtn = document.getElementById('noBtn');
+    noBtn.addEventListener('mouseover', () => {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.position = 'absolute';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    });
+
+    // Yes Button Action
+    const yesBtn = document.getElementById('yesBtn');
+    yesBtn.addEventListener('click', () => {
+      document.getElementById('valentineBox').style.display = 'none';
+      document.getElementById('videoLink').style.display = 'block';
+    });
+
+    // Next Button Action
+    const nextBtn = document.getElementById('nextBtn');
+    nextBtn.addEventListener('click', () => {
+      document.getElementById('videoLink').style.display = 'none';
+      document.getElementById('restaurantSelection').style.display = 'block';
+    });
+
+    // Restaurant Selection
+    const restaurantImages = document.querySelectorAll('.restaurant');
+    restaurantImages.forEach(image => {
+      image.addEventListener('click', () => {
+        const selected = image.alt;
+        document.getElementById('restaurantSelection').style.display = 'none';
+        document.getElementById('puzzleContainer').style.display = 'block';
+        startPuzzle(selected);
+      });
+    });
+
+    // Puzzle Functionality
+    function startPuzzle(selected) {
+      const puzzleContainer = document.getElementById('puzzle');
+      puzzleContainer.innerHTML = '';
+      const tiles = [];
+      for (let i = 0; i < 16; i++) {
+        const tile = document.createElement('div');
+        tile.classList.add('tile');
+        tile.style.backgroundImage = "url('puzzle.jpg')";
+        tile.style.backgroundPosition = `${-(i % 4) * 75}px ${-Math.floor(i / 4) * 75}px`;
+        tile.draggable = true;
+        tile.addEventListener('dragstart', dragStart);
+        tile.addEventListener('dragover', dragOver);
+        tile.addEventListener('drop', drop);
+        tiles.push(tile);
+      }
+      tiles.sort(() => Math.random() - 0.5);
+      tiles.forEach(tile => puzzleContainer.appendChild(tile));
+      document.getElementById('retryBtn').addEventListener('click', () => startPuzzle(selected));
+    }
+
+    let draggedTile;
+    function dragStart(e) {
+      draggedTile = e.target;
+    }
+    function dragOver(e) {
+      e.preventDefault();
+    }
+    function drop(e) {
+      const targetTile = e.target;
+      const temp = targetTile.style.backgroundPosition;
+      targetTile.style.backgroundPosition = draggedTile.style.backgroundPosition;
+      draggedTile.style.backgroundPosition = temp;
+
+      // Check if solved
+      const tiles = Array.from(document.querySelectorAll('.tile'));
+      const isSolved = tiles.every((tile, i) =>
+        tile.style.backgroundPosition === `${-(i % 4) * 75}px ${-Math.floor(i / 4) * 75}px`
+      );
+      if (isSolved) {
+        document.getElementById('puzzleContainer').style.display = 'none';
+        document.getElementById('messageBox').style.display = 'block';
+        document.getElementById('successMessage').innerText =
+          `Yayyy! See you at ${selected} on 14th! Here's your next surprise:`;
+      }
+    }
+  </script>
+</body>
+</html>
